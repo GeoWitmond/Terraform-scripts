@@ -21,17 +21,4 @@ if ($IsFirstDC) {
         -SafeModeAdministratorPassword $SecureSafeModePassword `
         -Force `
         -NoRebootOnCompletion
-} else {
-    Write-Host "Adding this server as a Replica Domain Controller to domain: $DomainName"
-
-    # Install AD DS role
-    Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
-
-    # Promote to Replica DC
-    Install-ADDSDomainController `
-        -DomainName $DomainName `
-        -Credential (Get-Credential -UserName "$DomainName\Administrator" -Message "Enter domain admin credentials") `
-        -SafeModeAdministratorPassword $SecureSafeModePassword `
-        -Force `
-        -NoRebootOnCompletion
 }
